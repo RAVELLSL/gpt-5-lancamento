@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI lança o GPT-5 | Visual Aprimorado</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap');
+
+        /* --- Variáveis de Cor Refinadas --- */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #2c3e50;
+            --secondary-color-darker: #212e3c;
+            --background-color: #f4f7f9; /* Tom ligeiramente mais frio */
+            --card-background: #ffffff;
+            --text-color: #4a5568;
+            --heading-color: #1a202c;
+            --border-color: #e2e8f0;
+            --shadow-color: rgba(0, 0, 0, 0.07);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.7; /* Melhoria na leiturabilidade */
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        /* --- Header Aprimorado --- */
+        .header {
+            background: linear-gradient(45deg, var(--secondary-color), var(--secondary-color-darker));
+            color: #ffffff;
+            padding: 4rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 3.2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* --- Imagem com Destaque --- */
+        .image-container {
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px var(--shadow-color);
+            border: 3px solid var(--card-background);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* --- Estilo dos Cards e Accordions --- */
+        .section {
+            background: var(--card-background);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            margin-bottom: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .section.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .accordion-header {
+            background-color: var(--card-background);
+            color: var(--heading-color);
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .accordion-header:hover {
+            background-color: #f8f9fa;
+        }
+
+        .accordion-header h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .accordion-header .icon {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .accordion-header.active .icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            padding: 0 25px 25px 25px; /* Padding ajustado para animação */
+            display: none;
+        }
+
+        .accordion-content.open {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* --- Estilo das Listas (Mais Limpo) --- */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 20px;
+        }
+
+        ul li {
+            position: relative;
+            padding: 12px 12px 12px 25px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease-in-out;
+            border: 1px solid var(--border-color);
+        }
+        
+        ul li::before {
+            content: '\f058'; /* Ícone de check do Font Awesome */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            left: 8px;
+            top: 15px;
+        }
+
+        ul li:hover {
+            background-color: #f8f9fa;
+        }
+        
+        h3 {
+             font-family: 'Montserrat', sans-serif;
+             color: var(--heading-color);
+             margin-top: 25px;
+             border-bottom: 2px solid var(--primary-color);
+             padding-bottom: 5px;
+             display: inline-block;
+        }
+
+        strong {
+            color: var(--heading-color);
+            font-weight: 700;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 40px;
+            background-color: var(--card-background);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1>OpenAI lança o GPT-5</h1>
+    </header>
+
+    <main class="container">
+        <div class="content-grid">
+            <div class="section">
+                <div class="accordion-header" data-target="accordion1">
+                    <h2>Anúncio e Disponibilidade do GPT-5</h2>
+                    <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                 <div id="accordion1" class="accordion-content">
+                    <p>A OpenAI lançou o **GPT-5** em 7 de agosto de 2025. A nova família de modelos de IA mais avançados agora está disponível para contas gratuitas do ChatGPT, embora com limites diários de uso. A distribuição é gradual, então pode levar alguns dias para que todos os usuários tenham acesso ao modelo.</p>
+    
+                    <h3>Novas Variantes do Modelo e Preços</h3>
+                    <ul>
+                        <li><strong>GPT-5:</strong> A versão “padrão” para tarefas de raciocínio lógico. Preço da API: $1.25/milhão (entrada) e $10/milhão (saída).</li>
+                        <li><strong>GPT-5-mini:</strong> Variante de melhor custo-benefício. Preço da API: $0.25/milhão (entrada) e $2.00/milhão (saída).</li>
+                        <li><strong>GPT-5-nano:</strong> Versão focada em eficiência para tarefas simples. Preço da API: $0.05/milhão (entrada) e $0.40/milhão (saída).</li>
+                        <li><strong>GPT-5-pro:</strong> A versão mais inteligente, para assinantes do ChatGPT Pro ($200/mês), com desempenho aprimorado.</li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="section">
+                <div class="accordion-header" data-target="accordion2">
+                    <h2>Principais Avanços e Recursos</h2>
+                    <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div id="accordion2" class="accordion-content">
+                    <ul>
+                        <li><strong>Raciocínio e Desempenho:</strong> Supera o desempenho humano no benchmark SimpleBench, alcançando 90% contra a média humana de 83%.</li>
+                        <li><strong>Tom de Voz:</strong> Comparado a um "expert" com nível de inteligência de um estudante de doutorado.</li>
+                        <li><strong>Unificação de Modelos:</strong> Concentra todos os tipos de modelos (convencional e de raciocínio) em um único LLM.</li>
+                        <li><strong>Melhorias na UX:</strong> Inicia tarefas de programação com prompts mais simples e explica temas com maior clareza.</li>
+                        <li><strong>Confiabilidade:</strong> Redução de alucinações e maior honestidade sobre sua incerteza, com pontuações de confiança.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+        <div class="image-container">
+            <img src="https://img.odcdn.com.br/wp-content/uploads/2025/08/gpt-5-1-1920x1080.jpg" alt="Imagem ilustrativa do GPT-5 com um cérebro digital em tons de azul e roxo">
+        </div>
+    
+        <div class="content-grid">
+            <div class="section">
+                <div class="accordion-header" data-target="accordion3">
+                    <h2>Novidades Futuras e Integrações</h2>
+                    <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div id="accordion3" class="accordion-content">
+                    <ul>
+                        <li><strong>Capacidades Multimodais:</strong> Lida fluidamente com texto, imagens e arquivos em uma única conversa, com memória de longo prazo.</li>
+                        <li><strong>Recursos Iminentes:</strong> Opção para separar chats por cores e personalidades; conexão com Gmail e Google Calendar.</li>
+                        <li><strong>Modo de Voz:</strong> Mais fluido e com melhor compreensão das falas de cada usuário.</li>
+                        <li><strong>Integração com Microsoft:</strong> Já está sendo incorporado aos produtos da Microsoft, incluindo o Microsoft 365 Copilot.</li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="section">
+                <div class="accordion-header" data-target="accordion4">
+                    <h2>Performance e Reconhecimento</h2>
+                    <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div id="accordion4" class="accordion-content">
+                    <ul>
+                        <li>Superou todos os modelos anteriores da OpenAI em raciocínio, programação, matemática e escrita criativa.</li>
+                        <li>Estabeleceu novos padrões em benchmarks de alto nível como AIME 2025, SWE-bench e MMMU.</li>
+                        <li>Estreou como o melhor modelo de textos na plataforma independente LMArena, que avalia as principais IAs do mercado.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+        <div class="section full-width">
+            <div class="accordion-header" data-target="accordion5">
+                <h2>Questões de Segurança e Ética</h2>
+                <span class="icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div id="accordion5" class="accordion-content">
+                <p>O lançamento do GPT-5 gerou debates sobre a segurança e o avanço da IA. O CEO da OpenAI, Sam Altman, expressou um senso de "inquietação" e "nervosismo" ao testar o modelo. Ele questionou se a humanidade está preparada para os avanços da tecnologia, ressaltando que as estruturas morais e legais não estão acompanhando a velocidade do desenvolvimento da IA.</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; 2025 Notícias de Tecnologia. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            const closeAllAccordions = () => {
+                document.querySelectorAll('.accordion-content.open').forEach(openContent => {
+                    openContent.classList.remove('open');
+                    openContent.previousElementSibling.classList.remove('active');
+                });
+            };
+
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = document.getElementById(header.dataset.target);
+                    const isAlreadyOpen = content.classList.contains('open');
+
+                    closeAllAccordions();
+
+                    if (!isAlreadyOpen) {
+                        header.classList.add('active');
+                        content.classList.add('open');
+                    }
+                });
+            });
+
+            // O bloco de código que abria o primeiro accordion por padrão foi removido.
+        });
+    </script>
+</body>
+</html>
