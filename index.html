@@ -13,9 +13,9 @@
             --primary-color: #007bff;
             --secondary-color: #2c3e50;
             --secondary-color-darker: #212e3c;
-            --background-color: #f4f7f9; /* Tom ligeiramente mais frio */
+            --background-color: #f4f7f9;
             --card-background: #ffffff;
-            --text-color: #4a5568;
+            --text-color: #3d4a5a;
             --heading-color: #1a202c;
             --border-color: #e2e8f0;
             --shadow-color: rgba(0, 0, 0, 0.07);
@@ -23,11 +23,13 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            line-height: 1.7; /* Melhoria na leiturabilidade */
+            line-height: 1.7;
             margin: 0;
             padding: 0;
             background-color: var(--background-color);
             color: var(--text-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* --- Header Aprimorado --- */
@@ -76,15 +78,15 @@
             margin-bottom: 30px;
         }
 
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.5rem;
-            }
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 992px) {
+            .header h1 { font-size: 2.8rem; }
         }
-        
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .content-grid { grid-template-columns: 1fr; }
+        }
+
         /* --- Estilo dos Cards e Accordions --- */
         .section {
             background: var(--card-background);
@@ -140,7 +142,7 @@
         }
 
         .accordion-content {
-            padding: 0 25px 25px 25px; /* Padding ajustado para animação */
+            padding: 0 25px 25px 25px;
             display: none;
         }
 
@@ -150,16 +152,17 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
+
+        /* ---- Respeitar prefers-reduced-motion ---- */
+        @media (prefers-reduced-motion: reduce) {
+            .section, .accordion-header .icon { transition: none; }
+            .section:hover { transform: none; box-shadow: 0 4px 15px var(--shadow-color); }
+            .accordion-content.open { animation: none; }
+        }
+
         /* --- Estilo das Listas (Mais Limpo) --- */
         ul {
             list-style-type: none;
@@ -174,8 +177,9 @@
             border-radius: 8px;
             transition: background-color 0.2s ease-in-out;
             border: 1px solid var(--border-color);
+            background-color: #fff;
         }
-        
+
         ul li::before {
             content: '\f058'; /* Ícone de check do Font Awesome */
             font-family: "Font Awesome 6 Free";
@@ -186,23 +190,39 @@
             top: 15px;
         }
 
-        ul li:hover {
-            background-color: #f8f9fa;
-        }
-        
+        ul li:hover { background-color: #f8f9fa; }
+
         h3 {
-             font-family: 'Montserrat', sans-serif;
-             color: var(--heading-color);
-             margin-top: 25px;
-             border-bottom: 2px solid var(--primary-color);
-             padding-bottom: 5px;
-             display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--heading-color);
+            margin-top: 25px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+            display: inline-block;
         }
 
-        strong {
-            color: var(--heading-color);
-            font-weight: 700;
+        strong { color: var(--heading-color); font-weight: 700; }
+
+        /* --- FAQ --- */
+        .faq-list { margin-top: 10px; }
+        .faq-item {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin: 12px 0;
+            background: #fff;
         }
+        .faq-q {
+            padding: 14px 18px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .faq-q i { transition: transform .3s ease; color: var(--primary-color); }
+        .faq-q.active i { transform: rotate(180deg); }
+        .faq-a { display: none; padding: 0 18px 16px 18px; }
+        .faq-a.open { display: block; animation: fadeIn 0.35s ease; }
 
         /* --- Footer --- */
         .footer {
@@ -230,18 +250,18 @@
                     <span class="icon"><i class="fas fa-chevron-down"></i></span>
                 </div>
                  <div id="accordion1" class="accordion-content">
-                    <p>A OpenAI lançou o GPT-5 em 7 de agosto de 2025. A nova família de modelos de IA mais avançados agora está disponível para contas gratuitas do ChatGPT, embora com limites diários de uso. A distribuição é gradual, então pode levar alguns dias para que todos os usuários tenham acesso ao modelo.</p>
-    
+                    <p>A OpenAI lançou o GPT-5 em 7 de agosto de 2025. A nova família de modelos de IA mais avançados agora está disponível para contas gratuitas do ChatGPT, embora com limites diários de uso. A distribuição é gradual, então pode levar alguns dias até que todos os usuários tenham acesso ao modelo.</p>
+
                     <h3>Novas Variantes do Modelo e Preços</h3>
                     <ul>
-                        <li><strong>GPT-5:</strong> A versão “padrão” para tarefas de raciocínio lógico. Preço da API: $1.25/milhão (entrada) e $10/milhão (saída).</li>
-                        <li><strong>GPT-5-mini:</strong> Variante de melhor custo-benefício. Preço da API: $0.25/milhão (entrada) e $2.00/milhão (saída).</li>
-                        <li><strong>GPT-5-nano:</strong> Versão focada em eficiência para tarefas simples. Preço da API: $0.05/milhão (entrada) e $0.40/milhão (saída).</li>
-                        <li><strong>GPT-5-pro:</strong> A versão mais inteligente, para assinantes do ChatGPT Pro ($200/mês), com desempenho aprimorado.</li>
+                        <li><strong>GPT-5:</strong> versão “padrão” para tarefas gerais e raciocínio lógico. <em>API</em>: US$ 1,25/milhão (entrada) e US$ 10/milhão (saída).</li>
+                        <li><strong>GPT-5-mini:</strong> melhor custo–benefício. <em>API</em>: US$ 0,25/milhão (entrada) e US$ 2,00/milhão (saída).</li>
+                        <li><strong>GPT-5-nano:</strong> foco em eficiência para tarefas simples. <em>API</em>: US$ 0,05/milhão (entrada) e US$ 0,40/milhão (saída).</li>
+                        <li><strong>GPT-5-Pro:</strong> versão mais inteligente (exclusiva para assinantes ChatGPT Pro/Team, com desempenho aprimorado).</li>
                     </ul>
                 </div>
             </div>
-    
+
             <div class="section">
                 <div class="accordion-header" data-target="accordion2">
                     <h2>Principais Avanços e Recursos</h2>
@@ -249,20 +269,20 @@
                 </div>
                 <div id="accordion2" class="accordion-content">
                     <ul>
-                        <li><strong>Raciocínio e Desempenho:</strong> Supera o desempenho humano no benchmark SimpleBench, alcançando 90% contra a média humana de 83%.</li>
-                        <li><strong>Tom de Voz:</strong> Comparado a um "expert" com nível de inteligência de um estudante de doutorado.</li>
-                        <li><strong>Unificação de Modelos:</strong> Concentra todos os tipos de modelos (convencional e de raciocínio) em um único LLM.</li>
-                        <li><strong>Melhorias na UX:</strong> Inicia tarefas de programação com prompts mais simples e explica temas com maior clareza.</li>
-                        <li><strong>Confiabilidade:</strong> Redução de alucinações e maior honestidade sobre sua incerteza, com pontuações de confiança.</li>
+                        <li><strong>Raciocínio e Desempenho:</strong> supera o desempenho humano no SimpleBench, com 90% contra média humana de 83%.</li>
+                        <li><strong>Tom de Voz:</strong> comparado a um “expert” com nível de estudante de doutorado.</li>
+                        <li><strong>Unificação de Modelos:</strong> reúne modelos convencionais e de raciocínio em um único LLM.</li>
+                        <li><strong>Melhorias na UX:</strong> começa tarefas de programação com prompts mais simples e explica temas com maior clareza.</li>
+                        <li><strong>Confiabilidade:</strong> redução de alucinações e maior honestidade sobre incerteza, com pontuações de confiança.</li>
                     </ul>
                 </div>
             </div>
         </div>
-    
+
         <div class="image-container">
             <img src="https://img.odcdn.com.br/wp-content/uploads/2025/08/gpt-5-1-1920x1080.jpg" alt="Imagem ilustrativa do GPT-5 com um cérebro digital em tons de azul e roxo">
         </div>
-    
+
         <div class="content-grid">
             <div class="section">
                 <div class="accordion-header" data-target="accordion3">
@@ -271,14 +291,14 @@
                 </div>
                 <div id="accordion3" class="accordion-content">
                     <ul>
-                        <li><strong>Capacidades Multimodais:</strong> Lida fluidamente com texto, imagens e arquivos em uma única conversa, com memória de longo prazo.</li>
-                        <li><strong>Recursos Iminentes:</strong> Opção para separar chats por cores e personalidades; conexão com Gmail e Google Calendar.</li>
-                        <li><strong>Modo de Voz:</strong> Mais fluido e com melhor compreensão das falas de cada usuário.</li>
-                        <li><strong>Integração com Microsoft:</strong> Já está sendo incorporado aos produtos da Microsoft, incluindo o Microsoft 365 Copilot.</li>
+                        <li><strong>Capacidades Multimodais:</strong> lida com texto, imagens e arquivos em uma única conversa, com memória de longo prazo.</li>
+                        <li><strong>Recursos iminentes:</strong> separar chats por cores e personalidades; conexão com Gmail e Google Calendar.</li>
+                        <li><strong>Modo de Voz:</strong> mais fluido e com melhor compreensão das falas de cada usuário.</li>
+                        <li><strong>Integração com Microsoft:</strong> incorporação aos produtos Microsoft, incluindo o Microsoft 365 Copilot.</li>
                     </ul>
                 </div>
             </div>
-    
+
             <div class="section">
                 <div class="accordion-header" data-target="accordion4">
                     <h2>Performance e Reconhecimento</h2>
@@ -287,54 +307,279 @@
                 <div id="accordion4" class="accordion-content">
                     <ul>
                         <li>Superou todos os modelos anteriores da OpenAI em raciocínio, programação, matemática e escrita criativa.</li>
-                        <li>Estabeleceu novos padrões em benchmarks de alto nível como AIME 2025, SWE-bench e MMMU.</li>
-                        <li>Estreou como o melhor modelo de textos na plataforma independente LMArena, que avalia as principais IAs do mercado.</li>
+                        <li>Estabeleceu novos padrões em benchmarks como AIME 2025, SWE-bench e MMMU.</li>
+                        <li>Estreou como o melhor modelo de texto na plataforma independente LMArena.</li>
                     </ul>
                 </div>
             </div>
         </div>
-    
+
         <div class="section full-width">
             <div class="accordion-header" data-target="accordion5">
                 <h2>Questões de Segurança e Ética</h2>
                 <span class="icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div id="accordion5" class="accordion-content">
-                <p>O lançamento do GPT-5 gerou debates sobre a segurança e o avanço da IA. O CEO da OpenAI, Sam Altman, expressou um senso de "inquietação" e "nervosismo" ao testar o modelo. Ele questionou se a humanidade está preparada para os avanços da tecnologia, ressaltando que as estruturas morais e legais não estão acompanhando a velocidade do desenvolvimento da IA.</p>
+                <p>O lançamento do GPT-5 reacendeu debates sobre segurança e o ritmo do avanço da IA. O CEO da OpenAI, Sam Altman, relatou “inquietação” e “nervosismo” ao testar o modelo e questionou se a sociedade está preparada para os impactos, ressaltando que estruturas morais e legais não acompanham a velocidade do desenvolvimento.</p>
             </div>
         </div>
+
+        <!-- NOVOS BLOCOS (com base no material fornecido) -->
+        <div class="content-grid">
+            <div class="section">
+                <div class="accordion-header" data-target="accordion6">
+                    <h2>Modelos removidos e migração para o GPT-5</h2>
+                    <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div id="accordion6" class="accordion-content">
+                    <p>Com a estreia do GPT-5 (07 de agosto de 2025), a OpenAI vai aposentar modelos antigos no ChatGPT. Ao iniciar uma conversa com esses modelos, o ChatGPT migra automaticamente para uma variante equivalente do GPT-5.</p>
+
+                    <h3>Modelos que serão removidos no ChatGPT</h3>
+                    <ul>
+                        <li>GPT-4o</li>
+                        <li>GPT-4.1</li>
+                        <li>GPT-4.5</li>
+                        <li>GPT-4.1-mini</li>
+                        <li>o4-mini</li>
+                        <li>o4-mini-high</li>
+                        <li>o3</li>
+                        <li>o3-pro</li>
+                    </ul>
+
+                    <h3>Como fica o mapeamento para o GPT-5</h3>
+                    <ul>
+                        <li><strong>4o, 4.1, 4.5, 4.1-mini, o4-mini, o4-mini-high →</strong> <strong>GPT-5 (padrão)</strong></li>
+                        <li><strong>o3 →</strong> <strong>GPT-5-Thinking</strong></li>
+                        <li><strong>o3-pro →</strong> <strong>GPT-5-Pro</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="accordion-header" data-target="accordion7">
+                    <h2>Exceções e disponibilidade por plano</h2>
+                    <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div id="accordion7" class="accordion-content">
+                    <ul>
+                        <li><strong>Free e Plus:</strong> mudanças <strong>imediatas</strong> no lançamento.</li>
+                        <li><strong>Pro e Enterprise:</strong> mudanças no lançamento, com <strong>acesso temporário</strong> a alguns modelos antigos nas definições (por período limitado).</li>
+                        <li><strong>GPT-5-Pro:</strong> <strong>exclusivo</strong> para os planos <strong>Pro</strong> e <strong>Team</strong>.</li>
+                        <li><strong>Exceção (modo de voz):</strong> permanece “comandado” pelo <strong>GPT-4o</strong> por enquanto.</li>
+                        <li><strong>API:</strong> a alteração afeta <strong>apenas</strong> o ChatGPT; <strong>não há previsão</strong> de remoção dos modelos na API.</li>
+                        <li><strong>Distribuição:</strong> liberada de forma <strong>gradual</strong> e pode levar tempo para chegar a todos.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section full-width">
+            <div class="accordion-header" data-target="accordion8">
+                <h2>Novidades na interface do ChatGPT</h2>
+                <span class="icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div id="accordion8" class="accordion-content">
+                <ul>
+                    <li><strong>Cores dos chats:</strong> opção para alterar a cor das conversas.</li>
+                    <li><strong>Estilos de resposta:</strong> seleção de estilos para os retornos em texto.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FAQ: dúvidas mais frequentes (contextualizada às necessidades gerais dos usuários) -->
+        <div class="section full-width">
+            <div class="accordion-header" data-target="accordion9">
+                <h2>FAQ — Perguntas frequentes sobre o GPT-5 e as mudanças no ChatGPT</h2>
+                <span class="icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div id="accordion9" class="accordion-content">
+                <p>Reunimos as dúvidas que usuários costumam ter ao iniciar o uso do GPT-5: disponibilidade, migrações automáticas, exceções, planos e o que muda no dia a dia.</p>
+                <div class="faq-list" id="faqList">
+                    <div class="faq-item">
+                        <div class="faq-q" tabindex="0" aria-expanded="false" aria-controls="faq1">
+                            <span>1) Quando terei acesso ao GPT-5?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-a" id="faq1" aria-hidden="true">
+                            <p>A liberação começou em 7 de agosto de 2025 para quase todos os usuários, inclusive contas Free, com limites diários. A distribuição é gradual e pode levar alguns dias até aparecer para todos.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q" tabindex="0" aria-expanded="false" aria-controls="faq2">
+                            <span>2) O que acontecerá se eu tentar usar GPT-4o, 4.1, 4.5, o3 etc.?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-a" id="faq2" aria-hidden="true">
+                            <p>O ChatGPT fará a migração automática para uma variante do GPT-5. Em geral, 4o/4.1/4.5/4.1-mini/o4-mini/o4-mini-high viram GPT-5 padrão; o3 vira GPT-5-Thinking e o3-pro vira GPT-5-Pro.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q" tabindex="0" aria-expanded="false" aria-controls="faq3">
+                            <span>3) O modo de voz já usa o GPT-5?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-a" id="faq3" aria-hidden="true">
+                            <p>Ainda não. Por enquanto, o modo de voz segue “comandado” pelo GPT-4o, enquanto o restante migra para o GPT-5.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q" tabindex="0" aria-expanded="false" aria-controls="faq4">
+                            <span>4) A mudança afeta a API?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-a" id="faq4" aria-hidden="true">
+                            <p>Não. As alterações referem-se ao ChatGPT. Não há previsão de remoção dos modelos na API neste momento.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q" tabindex="0" aria-expanded="false" aria-controls="faq5">
+                            <span>5) Quais as diferenças entre GPT-5, GPT-5-Thinking e GPT-5-Pro?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-a" id="faq5" aria-hidden="true">
+                            <p>O GPT-5 é o modelo padrão para uso geral. O GPT-5-Thinking foca em raciocínio mais profundo/estruturado (substitui o3). O GPT-5-Pro é o topo de linha com melhor desempenho, disponível para assinantes Pro/Team.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q" tabindex="0" aria-expanded="false" aria-controls="faq6">
+                            <span>6) Como ficam os preços da API?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-a" id="faq6" aria-hidden="true">
+                            <p>Referência: GPT-5 (US$ 1,25M tokens de entrada / US$ 10M tokens de saída), GPT-5-mini (US$ 0,25M / US$ 2,00M) e GPT-5-nano (US$ 0,05M / US$ 0,40M). Valores exemplificativos conforme informado no anúncio.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q" tabindex="0" aria-expanded="false" aria-controls="faq7">
+                            <span>7) Sou Pro ou Enterprise. Posso manter modelos antigos?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-a" id="faq7" aria-hidden="true">
+                            <p>Durante um período limitado após o lançamento, assinantes Pro e Enterprise terão acesso temporário a alguns modelos antigos via definições. Depois, tudo migra para a família GPT-5.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q" tabindex="0" aria-expanded="false" aria-controls="faq8">
+                            <span>8) O que muda para contas Free e Plus?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-a" id="faq8" aria-hidden="true">
+                            <p>As alterações entram em vigor imediatamente, com acesso ao GPT-5 (sujeito a limites diários). A experiência deve ficar mais estável, clara e com menos alucinações.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q" tabindex="0" aria-expanded="false" aria-controls="faq9">
+                            <span>9) Quais novidades na interface impactam meu uso diário?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-a" id="faq9" aria-hidden="true">
+                            <p>Agora é possível alterar a cor dos chats e escolher estilos de resposta em texto — útil para personalizar a leitura e padronizar entregas.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q" tabindex="0" aria-expanded="false" aria-controls="faq10">
+                            <span>10) O GPT-5 é realmente mais confiável?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-a" id="faq10" aria-hidden="true">
+                            <p>O modelo foi projetado para reduzir alucinações e declarar incerteza com mais honestidade (incluindo pontuações de confiança). Também há melhorias em benchmarks e em integrações (Microsoft 365 Copilot; recursos iminentes como Gmail/Calendar).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM FAQ -->
     </main>
-    
+
     <footer class="footer">
         <p>&copy; 2025 Notícias de Tecnologia. Todos os direitos reservados.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            /* ---- Accordions principais com ARIA ---- */
             const accordionHeaders = document.querySelectorAll('.accordion-header');
 
             const closeAllAccordions = () => {
-                document.querySelectorAll('.accordion-content.open').forEach(openContent => {
-                    openContent.classList.remove('open');
-                    openContent.previousElementSibling.classList.remove('active');
+                document.querySelectorAll('.accordion-content.open').forEach(content => {
+                    content.classList.remove('open');
+                    content.setAttribute('aria-hidden', 'true');
+                    const header = content.previousElementSibling;
+                    if (header && header.classList.contains('accordion-header')) {
+                        header.classList.remove('active');
+                        header.setAttribute('aria-expanded', 'false');
+                    }
                 });
             };
 
             accordionHeaders.forEach(header => {
-                header.addEventListener('click', () => {
-                    const content = document.getElementById(header.dataset.target);
-                    const isAlreadyOpen = content.classList.contains('open');
+                const targetId = header.dataset.target;
+                const content = document.getElementById(targetId);
 
+                // Atributos ARIA básicos
+                header.setAttribute('role', 'button');
+                header.setAttribute('tabindex', '0');
+                header.setAttribute('aria-controls', targetId);
+                header.setAttribute('aria-expanded', 'false');
+                if (content) content.setAttribute('aria-hidden', 'true');
+
+                const toggle = () => {
+                    if (!content) return;
+                    const isOpen = content.classList.contains('open');
                     closeAllAccordions();
-
-                    if (!isAlreadyOpen) {
+                    if (!isOpen) {
                         header.classList.add('active');
+                        header.setAttribute('aria-expanded', 'true');
                         content.classList.add('open');
+                        content.setAttribute('aria-hidden', 'false');
+                    }
+                };
+
+                header.addEventListener('click', toggle);
+                header.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggle();
                     }
                 });
             });
 
-            // O bloco de código que abria o primeiro accordion por padrão foi removido.
+            /* ---- FAQ (toggle independente, múltiplos abertos) ---- */
+            const faqQs = document.querySelectorAll('.faq-q');
+            faqQs.forEach(q => {
+                const answerId = q.getAttribute('aria-controls');
+                const answerEl = document.getElementById(answerId);
+
+                const toggleFaq = () => {
+                    const isActive = q.classList.contains('active');
+                    // Alterna apenas o item clicado (FAQ permite múltiplos abertos)
+                    q.classList.toggle('active', !isActive);
+                    q.setAttribute('aria-expanded', String(!isActive));
+                    if (answerEl) {
+                        answerEl.classList.toggle('open', !isActive);
+                        answerEl.setAttribute('aria-hidden', String(isActive));
+                    }
+                };
+
+                q.addEventListener('click', toggleFaq);
+                q.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleFaq();
+                    }
+                });
+            });
+
+            // Nenhum accordion aberto por padrão
         });
     </script>
 </body>
